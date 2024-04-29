@@ -1,0 +1,6 @@
+services:
+  app:
+    build: .
+    image: mono_reader
+    env_file: .env
+    command: "poetry run python main.py"
