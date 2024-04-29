@@ -3,3 +3,4 @@
 google_auth
 *.pyc
 __pycache__/
+.env
