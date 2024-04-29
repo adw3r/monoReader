@@ -29,6 +29,7 @@ def reformat_columns(df: pandas.DataFrame):
 
 
 def main() -> None:
+    print('start')
     account_info: httpx.Response = parsers.MonoApi.get_account_info()
     account_info_schema: schemas.AccountSchema = schemas.AccountSchema(**account_info.json())
     cards: list[schemas.BankCard] = [
@@ -57,6 +58,7 @@ def main() -> None:
     gc = google_api.get_client()
     ws = gc.open_by_url(config.URL_TO_MAIN).worksheet('data')
     gspread_dataframe.set_with_dataframe(ws, frames, allow_formulas=False)
+    print('finish')
 
 
 if __name__ == '__main__':
