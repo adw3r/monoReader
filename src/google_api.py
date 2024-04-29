@@ -1,6 +1,6 @@
 import gspread
 
-import config
+from src import config
 
 
 def get_client():

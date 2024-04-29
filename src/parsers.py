@@ -1,6 +1,6 @@
 import httpx
 
-import config
+from src import config
 
 
 class MonoApi:

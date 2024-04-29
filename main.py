@@ -4,11 +4,7 @@ import gspread_dataframe
 import httpx
 import pandas
 
-import google_api
-import parsers
-import schemas
-
-URL_TO_MAIN = 'https://docs.google.com/spreadsheets/d/1s6LBe-NsNSZ3D3chuIa3cC8xPLssgX8wyENfpRm25TE/edit#gid=1163805004'
+from src import config, schemas, parsers, google_api
 
 
 def reformat_columns(df: pandas.DataFrame):
@@ -59,7 +55,7 @@ def main() -> None:
     frames = reformat_columns(frames)
     frames = frames.sort_values('time')
     gc = google_api.get_client()
-    ws = gc.open_by_url(URL_TO_MAIN).worksheet('data')
+    ws = gc.open_by_url(config.URL_TO_MAIN).worksheet('data')
     gspread_dataframe.set_with_dataframe(ws, frames, allow_formulas=False)
 
 
