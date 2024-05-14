@@ -13,6 +13,8 @@ gspread-dataframe = "^3.3.1"
 pytest = "^8.2.0"
 pydantic = "^2.7.1"
 python-dotenv = "^1.0.1"
+fastapi = {extras = ["all"], version = "^0.110.3"}
+pymongo = "^4.7.0"
 
 
 [build-system]
