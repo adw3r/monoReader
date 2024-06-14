@@ -6,7 +6,10 @@ import gspread_dataframe
 import httpx
 import pandas
 
-from src import config, schemas, parsers, google_api
+from src import config
+from src import google_api
+from src import parsers
+from src import schemas
 
 
 def reformat_columns(df: pandas.DataFrame):
@@ -30,10 +33,7 @@ def reformat_columns(df: pandas.DataFrame):
     ]]
 
 
-@click.command()
-@click.option('-d', '--days', default=1)
-@click.option('--log-level', default='INFO')
-def main(days: int = 31, log_level: str = 'INFO') -> None:
+def main(days: int = 7, log_level: str = 'INFO') -> None:
     logging.basicConfig(level=log_level)
     logging.info(f'start {days=}')
     account_info: httpx.Response = parsers.MonoApi.get_account_info()
@@ -66,12 +66,18 @@ def main(days: int = 31, log_level: str = 'INFO') -> None:
     frames = reformat_columns(frames)
     frames = frames.sort_values('time')
 
-    gc = google_api.get_client()
-    ws = gc.open_by_url(config.URL_TO_MAIN).worksheet('data')
+    ws = google_api.get_service().open_by_url(config.URL_TO_MAIN).worksheet('data')
     ws.clear()
     gspread_dataframe.set_with_dataframe(ws, frames, allow_formulas=False)
     logging.info('finish')
 
 
+@click.command()
+@click.option('-d', '--days', default=1)
+@click.option('--log-level', default='INFO')
+def click_main(*args, **kwargs):
+    main(*args, **kwargs)
+
+
 if __name__ == '__main__':
-    main()
+    click_main()

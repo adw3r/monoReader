@@ -12,6 +12,7 @@ ROOT_FOLDER = Path(__file__).parent.parent
 GOOGLE_AUTH_FOLDER = ROOT_FOLDER / 'google_auth'
 GOOGLE_CREDENTIALS = GOOGLE_AUTH_FOLDER / 'credentials.json'
 GOOGLE_USER = GOOGLE_AUTH_FOLDER / 'authorised_user.json'
+GOOGLE_SERVICE_ACC = GOOGLE_AUTH_FOLDER / 'service.json'
 
 # Mono Private API token
 MONOBANK_REQUEST_ID = os.environ['MONOBANK_REQUEST_ID']
